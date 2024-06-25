@@ -1,0 +1,8 @@
+[user]
+  name = Francisko de Moraes Rezende
+  email = francisko.rezende@gmail.com
+[init]
+  defaultBranch = main
+
+[includeIf "gitdir:~/coding/radek/"]
+  path = .gitconfig-radek
