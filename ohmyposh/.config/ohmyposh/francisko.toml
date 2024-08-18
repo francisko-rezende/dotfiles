@@ -7,6 +7,10 @@ console_title_template = '{{ .Shell }} in {{ .Folder }}'
 
 [palette]
 green = '#9CFF57'
+catppuccin_blue = '#8AADF4'
+catppuccin_pink = '#F5BDE6'
+catppuccin_green = '#A6E3A1'
+golang_blue = '#7FD5EA'
 
 [[blocks]]
 type = 'prompt'
@@ -31,13 +35,15 @@ type = 'git'
 style = 'plain'
 template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
 background = 'transparent'
-foreground = 'p:grey'
+foreground = 'p:catppuccin_pink'
+# foreground = 'p:grey'
 Text = ''
 Duration = 0
 NameLength = 0
 
 [blocks.segments.properties]
-branch_icon = ''
+# branch_icon = '\uE0A0'
+branch_icon = ' '
 commit_icon = '@'
 fetch_status = true
 
@@ -64,15 +70,16 @@ home_enabled = false
 [[blocks.segments]]
 type = 'go'
 style = 'plain'
-template = ' {{ .Full}}'
+template = '  {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} '
+# template = '  {{ .Full}} '
 background = 'transparent'
-foreground = 'p:blue'
+foreground = 'p:golang_blue'
 Text = ''
 Duration = 0
 NameLength = 0
 
 [blocks.segments.properties]
-fetch_version = false
+# fetch_version = false
 
 
 [[blocks]]
