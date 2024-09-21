@@ -1,5 +1,8 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  opts = {
+    ensure_installed = { "gleam" },
+  },
   -- config = function()
   --   local configs = require("nvim-treesitter.configs")
   --
