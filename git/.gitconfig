@@ -2,6 +2,9 @@
   name = Francisko de Moraes Rezende
   email = francisko.rezende@gmail.com
 
+[core]
+  editor = "vi"
+
 [init]
   defaultBranch = main
 
