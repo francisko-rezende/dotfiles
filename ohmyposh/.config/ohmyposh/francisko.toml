@@ -11,6 +11,8 @@ catppuccin_blue = '#8AADF4'
 catppuccin_pink = '#F5BDE6'
 catppuccin_green = '#A6E3A1'
 golang_blue = '#7FD5EA'
+gleam_pink = '#ffaef3'
+elixir_purple = '#c0a2d0'
 
 [[blocks]]
 type = 'prompt'
@@ -77,6 +79,24 @@ foreground = 'p:golang_blue'
 Text = ''
 Duration = 0
 NameLength = 0
+
+[[blocks.segments]]
+type = "elixir"
+style = "plain"
+foreground = "p:elixir_purple"
+# background = "#422251"
+template = "  {{ .Full }} "
+
+# [[blocks.segments]]
+# type = 'gleam'
+# style = 'plain'
+# template = ' ⭐️ {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} '
+# background = 'transparent'
+# foreground = 'p:gleam_pink'
+# Text = ''
+# Duration = 0
+# NameLength = 0
+
 
 [blocks.segments.properties]
 # fetch_version = false
