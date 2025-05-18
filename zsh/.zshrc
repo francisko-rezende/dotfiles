@@ -45,6 +45,9 @@ alias ls='ls --color'
 # golang asdf
  . ~/.asdf/plugins/golang/set-env.zsh
 
+ # golang bin
+export PATH=$PATH:$GOBIN
+
 # Load completions
 autoload -Uz compinit && compinit
 
