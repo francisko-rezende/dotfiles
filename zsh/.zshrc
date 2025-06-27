@@ -40,13 +40,18 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 alias ls='ls --color'
 
 # asdf
-. "$HOME/.asdf/asdf.sh"
+#. "$HOME/.asdf/asdf.sh"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # golang asdf
- . ~/.asdf/plugins/golang/set-env.zsh
+ # . ~/.asdf/plugins/golang/set-env.zsh
+. ${ASDF_DATA_DIR:-$HOME/.asdf}/plugins/golang/set-env.zsh
 
  # golang bin
 export PATH=$PATH:$GOBIN
+
+# append completions to fpath
+fpath=({$ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 
 # Load completions
 autoload -Uz compinit && compinit

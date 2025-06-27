@@ -1,142 +1,102 @@
-
-#:schema https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
-
-version = 2
-final_space = true
 console_title_template = '{{ .Shell }} in {{ .Folder }}'
+version = 3
+final_space = true
 
 [palette]
-green = '#9CFF57'
-catppuccin_blue = '#8AADF4'
-catppuccin_pink = '#F5BDE6'
-catppuccin_green = '#A6E3A1'
-golang_blue = '#7FD5EA'
-gleam_pink = '#ffaef3'
-elixir_purple = '#c0a2d0'
-
-[[blocks]]
-type = 'prompt'
-alignment = 'left'
-newline = true
-
-[[blocks.segments]]
-type = 'path'
-style = 'plain'
-template = '{{ .Path }}'
-background = 'transparent'
-foreground = 'blue'
-Text = ''
-Duration = 0
-NameLength = 0
-
-[blocks.segments.properties]
-style = 'full'
-
-[[blocks.segments]]
-type = 'git'
-style = 'plain'
-template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
-background = 'transparent'
-foreground = 'p:catppuccin_pink'
-# foreground = 'p:grey'
-Text = ''
-Duration = 0
-NameLength = 0
-
-[blocks.segments.properties]
-# branch_icon = '\uE0A0'
-branch_icon = ' '
-commit_icon = '@'
-fetch_status = true
-
-
-[[blocks]]
-type = 'prompt'
-alignment = 'right'
-
-[[blocks.segments]]
-type = 'node'
-style = 'plain'
-template = '  {{ .Full }} '
-background = 'transparent'
-foreground = 'p:green'
-Text = ''
-Duration = 0
-NameLength = 0
-
-[blocks.segments.properties]
-display_mode = 'files'
-fetch_package_manager = false
-home_enabled = false
-
-[[blocks.segments]]
-type = 'go'
-style = 'plain'
-template = '  {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} '
-# template = '  {{ .Full}} '
-background = 'transparent'
-foreground = 'p:golang_blue'
-Text = ''
-Duration = 0
-NameLength = 0
-
-[[blocks.segments]]
-type = "elixir"
-style = "plain"
-foreground = "p:elixir_purple"
-# background = "#422251"
-template = "  {{ .Full }} "
-
-# [[blocks.segments]]
-# type = 'gleam'
-# style = 'plain'
-# template = ' ⭐️ {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} '
-# background = 'transparent'
-# foreground = 'p:gleam_pink'
-# Text = ''
-# Duration = 0
-# NameLength = 0
-
-
-[blocks.segments.properties]
-# fetch_version = false
-
-
-[[blocks]]
-type = 'prompt'
-alignment = 'left'
-newline = true
-
-[[blocks.segments]]
-type = 'text'
-style = 'plain'
-foreground_templates = [
-  '{{if gt .Code 0}}red{{end}}',
-  '{{if eq .Code 0}}magenta{{end}}',
-]
-template = '❯'
-background = 'transparent'
-foreground = ''
-Text = ''
-Duration = 0
-NameLength = 0
-
-[transient_prompt]
-foreground_templates = [
-  '{{if gt .Code 0}}red{{end}}',
-  '{{if eq .Code 0}}magenta{{end}}',
-]
-template = '❯ '
-background = 'transparent'
-foreground = ''
-Text = ''
-Duration = 0
-NameLength = 0
+  catppuccin_blue = '#8AADF4'
+  catppuccin_green = '#A6E3A1'
+  catppuccin_pink = '#F5BDE6'
+  elixir_purple = '#c0a2d0'
+  gleam_pink = '#ffaef3'
+  golang_blue = '#7FD5EA'
+  green = '#9CFF57'
 
 [secondary_prompt]
-template = '❯❯ '
-background = 'transparent'
-foreground = 'magenta'
-Text = ''
-Duration = 0
-NameLength = 0
+  template = '❯❯ '
+  foreground = 'magenta'
+  background = 'transparent'
+
+[transient_prompt]
+  template = '❯ '
+  background = 'transparent'
+  foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '{{ .Path }}'
+    foreground = 'blue'
+    background = 'transparent'
+    type = 'path'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      style = 'full'
+
+  [[blocks.segments]]
+    template = ' {{ .HEAD }}{{ if or (.Working.Changed) (.Staging.Changed) }}*{{ end }} <cyan>{{ if gt .Behind 0 }}⇣{{ end }}{{ if gt .Ahead 0 }}⇡{{ end }}</>'
+    foreground = 'p:catppuccin_pink'
+    background = 'transparent'
+    type = 'git'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      branch_icon = ' '
+      cache_duration = 'none'
+      commit_icon = '@'
+      fetch_status = true
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'right'
+
+  [[blocks.segments]]
+    template = '  {{ .Full }} '
+    foreground = 'p:green'
+    background = 'transparent'
+    type = 'node'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+      display_mode = 'files'
+      fetch_package_manager = false
+      home_enabled = false
+
+  [[blocks.segments]]
+    template = '  {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} '
+    foreground = 'p:golang_blue'
+    background = 'transparent'
+    type = 'go'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+  [[blocks.segments]]
+    template = '  {{ .Full }} '
+    foreground = 'p:elixir_purple'
+    type = 'elixir'
+    style = 'plain'
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
+
+[[blocks]]
+  type = 'prompt'
+  alignment = 'left'
+  newline = true
+
+  [[blocks.segments]]
+    template = '❯'
+    background = 'transparent'
+    type = 'text'
+    style = 'plain'
+    foreground_templates = ['{{if gt .Code 0}}red{{end}}', '{{if eq .Code 0}}magenta{{end}}']
+
+    [blocks.segments.properties]
+      cache_duration = 'none'
