@@ -1,0 +1,10 @@
+font-family = JetBrainsMono Nerd Font
+
+theme = catppuccin-mocha
+
+window-decoration = false
+
+gtk-titlebar = false
+
+cursor-style = block
+shell-integration-features = no-cursor
