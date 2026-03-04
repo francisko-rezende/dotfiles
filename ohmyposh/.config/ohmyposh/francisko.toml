@@ -55,6 +55,20 @@ type = 'prompt'
 alignment = 'right'
 
 [[blocks.segments]]
+type = 'rust'
+style = 'plain'
+# foreground = "#193549"
+# foreground = "#99908a"
+foreground = "#fab387"
+template = "  {{ .Full }} "
+background = 'transparent'
+# foreground = 'p:green'
+Text = ''
+Duration = 0
+NameLength = 0
+
+
+[[blocks.segments]]
 type = 'node'
 style = 'plain'
 template = '  {{ .Full }} '
