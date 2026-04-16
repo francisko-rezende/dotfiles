@@ -46,8 +46,12 @@ alias ls='ls --color'
  . ~/.asdf/plugins/golang/set-env.zsh
 
  # golang bin
-export PATH=$PATH:$GOBIN
+# export PATH=$PATH:$GOBIN
+export PATH=$GOBIN:$PATH
 
 # Load completions
 autoload -Uz compinit && compinit
+
+# exercism alias
+alias exercism="$HOME/bin/exercism"
 
