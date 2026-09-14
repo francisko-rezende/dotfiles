@@ -1,6 +1,14 @@
 -- Change the default Omarchy look'n'feel.
 
 -- https://wiki.hypr.land/Configuring/Basics/Variables/#general
+hl.config({
+  general = {
+    -- Tighter than Omarchy's default (gaps_in = 5, gaps_out = 10).
+    gaps_in = 2,
+    gaps_out = 4,
+  },
+})
+
 -- hl.config({
 --   general = {
 --     -- No gaps between windows or borders.
