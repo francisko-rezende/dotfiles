@@ -1,0 +1,11 @@
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+
+# Omarchy-managed symlink to the active theme's neovim.lua; not our config.
+/lua/plugins/theme.lua
