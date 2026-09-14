@@ -3,6 +3,17 @@
 
 -- Keyboard layout and options.
 -- See https://wiki.hypr.land/Configuring/Basics/Variables/#input
+
+-- Omarchy's default kb_options ("compose:caps,shift:both_capslock_cancel")
+-- turns Caps Lock into the Compose key. Override it here so Caps Lock is
+-- instead an extra Ctrl; both Shift keys together still toggles real Caps
+-- Lock if you ever need it.
+hl.config({
+  input = {
+    kb_options = "ctrl:nocaps,shift:both_capslock_cancel",
+  },
+})
+
 -- hl.config({
 --   input = {
 --     -- Use multiple keyboard layouts and switch between them with Left Alt + Right Alt.
