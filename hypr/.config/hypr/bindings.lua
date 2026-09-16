@@ -40,6 +40,32 @@ o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
 o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
 o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
 
+-- SUPER + J used to be the default "Toggle window split" bind before it was
+-- claimed above for vim-style focus movement. Restore it on a free key.
+o.bind("SUPER + SHIFT + T", "Toggle window split", hl.dsp.layout("togglesplit"))
+
+-- Vim-style window swap (arrow keys still work too).
+o.bind("SUPER + SHIFT + H", "Swap window to the left", hl.dsp.window.swap({ direction = "l" }))
+o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
+o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+o.bind("SUPER + SHIFT + L", "Swap window to the right", hl.dsp.window.swap({ direction = "r" }))
+
+-- Vim-style move workspace to monitor (arrow keys still work too).
+o.bind("SUPER + SHIFT + ALT + H", "Move workspace to left monitor", hl.dsp.workspace.move({ monitor = "l" }))
+o.bind("SUPER + SHIFT + ALT + J", "Move workspace to down monitor", hl.dsp.workspace.move({ monitor = "d" }))
+o.bind("SUPER + SHIFT + ALT + K", "Move workspace to up monitor", hl.dsp.workspace.move({ monitor = "u" }))
+o.bind("SUPER + SHIFT + ALT + L", "Move workspace to right monitor", hl.dsp.workspace.move({ monitor = "r" }))
+
+-- Vim-style move window into group (arrow keys still work too).
+-- SUPER+ALT+K collides with the default "Tmux keybindings" binding, so drop
+-- that one before rebinding it here.
+hl.unbind("SUPER + ALT + K")
+
+o.bind("SUPER + ALT + H", "Move window to group on left", hl.dsp.window.move({ into_group = "l" }))
+o.bind("SUPER + ALT + J", "Move window to group on bottom", hl.dsp.window.move({ into_group = "d" }))
+o.bind("SUPER + ALT + K", "Move window to group on top", hl.dsp.window.move({ into_group = "u" }))
+o.bind("SUPER + ALT + L", "Move window to group on right", hl.dsp.window.move({ into_group = "r" }))
+
 -- Rectangle/PowerToys-style half-screen snap. Floats the active window (if
 -- it isn't already) and sizes it to exactly half the monitor's work area.
 -- Resize must happen before move: resizing a floating window keeps its
