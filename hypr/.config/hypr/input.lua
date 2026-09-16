@@ -8,9 +8,15 @@
 -- turns Caps Lock into the Compose key. Override it here so Caps Lock is
 -- instead an extra Ctrl; both Shift keys together still toggles real Caps
 -- Lock if you ever need it.
+--
+-- kb_layout adds a US layout alongside the primary Brazilian one; br stays
+-- first so it's what's active at boot. grp:alts_toggle switches between them
+-- with Left Alt + Right Alt (also click-cycled by the bar's keyboard-layout
+-- widget, which becomes visible now that there's more than one layout).
 hl.config({
   input = {
-    kb_options = "ctrl:nocaps,shift:both_capslock_cancel",
+    kb_layout = "br,us",
+    kb_options = "ctrl:nocaps,shift:both_capslock_cancel,grp:alts_toggle",
   },
 })
 
