@@ -7,9 +7,12 @@ directory is a package whose contents mirror `$HOME`:
 - `nvim/` — Neovim (LazyVim-based)
 - `herdr/` — [herdr](https://github.com/herdrdev/herdr) terminal workspace manager config
 - `omarchy/` — Omarchy shell config (`shell.json`: bar layout, idle/lock)
+- `bash/` — `.bashrc` (interactive shell setup, incl. Starship init)
+- `starship/` — Starship prompt config (`starship.toml`)
 
-Shell, terminal emulator, and git config aren't tracked here — those are left
-as Omarchy defaults for now.
+Terminal emulator and git config aren't tracked here — those are left as
+Omarchy defaults for now. Anything else required to reproduce this setup on a
+fresh machine should end up as a package here.
 
 ## Setting up on a fresh Omarchy install
 
@@ -22,15 +25,16 @@ as Omarchy defaults for now.
 2. Clone this repo, e.g. to `~/Coding/personal/dotfiles`.
 
 3. Stow the packages. Omarchy's installer seeds real (non-symlink) files at
-   `~/.config/hypr/*.lua`, `~/.config/herdr/config.toml`, and
-   `~/.config/omarchy/shell.json`, so a plain `stow` will refuse due to
-   conflicts. Use `--adopt` to pull those files into the repo, then
-   immediately discard them with git so your tracked config wins:
+   `~/.config/hypr/*.lua`, `~/.config/herdr/config.toml`,
+   `~/.config/omarchy/shell.json`, `~/.bashrc`, and `~/.config/starship.toml`,
+   so a plain `stow` will refuse due to conflicts. Use `--adopt` to pull those
+   files into the repo, then immediately discard them with git so your
+   tracked config wins:
 
    ```
    cd ~/Coding/personal/dotfiles
-   stow --adopt -t ~ herdr hypr nvim omarchy
-   git status    # should show hypr/herdr/omarchy files modified with Omarchy's defaults
+   stow --adopt -t ~ herdr hypr nvim omarchy bash starship
+   git status    # should show files modified with Omarchy's defaults
    git checkout .    # discard them, restoring your tracked config
    ```
 
