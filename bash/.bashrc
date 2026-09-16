@@ -16,9 +16,10 @@ source "$OMARCHY_PATH/default/bash/rc"
 # Starship prompt (config tracked in dotfiles: ~/.config/starship.toml)
 eval "$(starship init bash)"
 
-# Fallback in case systemd environment.d wasn't picked up by this session
-: "${SSH_AUTH_SOCK:=$XDG_RUNTIME_DIR/ssh-agent.socket}"
-export SSH_AUTH_SOCK
+# The Hyprland/uwsm session already exports this via
+# ~/.config/uwsm/env.d/50-ssh-agent.conf; this covers bash sessions outside
+# that session (bare SSH login, a TTY) where uwsm's env.d never ran.
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 # pnpm
 export PNPM_HOME='/home/francisko/.local/share/pnpm'
