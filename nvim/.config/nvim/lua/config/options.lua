@@ -2,6 +2,7 @@
 require("config.remote_clipboard").setup()
 
 vim.opt.relativenumber = true
+vim.opt.winbar = "%=%m %f"
 vim.g.autoformat = true
 
 -- In an Nx monorepo, LSP root_dir resolves to the nearest app's package.json
