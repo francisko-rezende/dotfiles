@@ -62,5 +62,15 @@
       ]
     }
   },
-  "plugins": []
+  "plugins": [
+    {
+      "id": "francisko.notifications"
+    }
+  ],
+  "disabledPlugins": [
+    "omarchy.notifications"
+  ],
+  "cloneSourceRestores": [
+    "francisko.notifications"
+  ]
 }
