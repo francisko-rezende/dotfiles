@@ -17,6 +17,12 @@ hl.config({
   input = {
     kb_layout = "br,us",
     kb_options = "ctrl:nocaps,shift:both_capslock_cancel,grp:alts_toggle",
+
+    touchpad = {
+      -- Natural scrolling makes content follow finger movement, which also
+      -- flips browser back/forward swipe direction (swipe right = back).
+      natural_scroll = true,
+    },
   },
 })
 
