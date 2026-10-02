@@ -66,6 +66,16 @@ o.bind("SUPER + ALT + J", "Move window to group on bottom", hl.dsp.window.move({
 o.bind("SUPER + ALT + K", "Move window to group on top", hl.dsp.window.move({ into_group = "u" }))
 o.bind("SUPER + ALT + L", "Move window to group on right", hl.dsp.window.move({ into_group = "r" }))
 
+-- Move the window into the neighbour's space instead of swapping with it.
+o.bind("SUPER + CTRL + SHIFT + LEFT", "Move window left", hl.dsp.window.move({ direction = "l" }))
+o.bind("SUPER + CTRL + SHIFT + DOWN", "Move window down", hl.dsp.window.move({ direction = "d" }))
+o.bind("SUPER + CTRL + SHIFT + UP", "Move window up", hl.dsp.window.move({ direction = "u" }))
+o.bind("SUPER + CTRL + SHIFT + RIGHT", "Move window right", hl.dsp.window.move({ direction = "r" }))
+o.bind("SUPER + CTRL + SHIFT + H", "Move window left", hl.dsp.window.move({ direction = "l" }))
+o.bind("SUPER + CTRL + SHIFT + J", "Move window down", hl.dsp.window.move({ direction = "d" }))
+o.bind("SUPER + CTRL + SHIFT + K", "Move window up", hl.dsp.window.move({ direction = "u" }))
+o.bind("SUPER + CTRL + SHIFT + L", "Move window right", hl.dsp.window.move({ direction = "r" }))
+
 -- Rectangle/PowerToys-style half-screen snap. Floats the active window (if
 -- it isn't already) and sizes it to exactly half the monitor's work area.
 -- Resize must happen before move: resizing a floating window keeps its
