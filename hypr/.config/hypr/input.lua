@@ -18,6 +18,10 @@ hl.config({
     kb_layout = "br,us",
     kb_options = "ctrl:nocaps,shift:both_capslock_cancel,grp:alts_toggle",
 
+    -- Click to focus: hovering a window no longer steals keyboard focus, but
+    -- scrolling still goes to whatever window is under the cursor.
+    follow_mouse = 2,
+
     touchpad = {
       -- Natural scrolling makes content follow finger movement, which also
       -- flips browser back/forward swipe direction (swipe right = back).
