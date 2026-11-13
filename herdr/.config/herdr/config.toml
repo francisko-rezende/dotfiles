@@ -120,3 +120,12 @@ tab_bar_right = [{ type = "zoom" }, { type = "hostname" }]
 # the basename of the pane cwd. This is what Hyprland shows in the group bar,
 # and it resolves on the server so remote sessions name the remote host.
 window_title = "{hostname}: {workspace}"
+
+# Claude Code writes its session name (/rename, or its auto title) into the
+# terminal title, so Claude's Agent rows lead with that instead of the tab name.
+# terminal_title_stripped drops the leading spinner/activity glyph.
+[ui.sidebar.agents.rows_by_agent]
+claude = [
+  ["state_icon", "terminal_title_stripped"],
+  ["workspace", "tab"],
+]
