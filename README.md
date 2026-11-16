@@ -48,13 +48,10 @@ window, a private key, or a new login session. An agent can run the rest.
    ```
 
    Omarchy's installer creates its own default config files where these
-   symlinks go, so `apply` adopts them into the repo (`stow --adopt`) and
-   lists them. On a fresh install those are Omarchy's defaults: discard them
-   right away, before committing anything, so they never enter history:
-
-   ```
-   git checkout -- .
-   ```
+   symlinks go, so `apply` moves any that differ from the repo into
+   `~/.local/state/dotfiles-backup/<timestamp>/` and lists them. On a fresh
+   install those are Omarchy's defaults and can be ignored. The repo is never
+   modified.
 
 4. **(you)** Put your SSH private key in `~/.ssh/` (never tracked here: copy or
    generate it separately), then switch the remote to SSH:
@@ -83,10 +80,8 @@ catches the two ways this machine drifts from the repo:
 
 - **A config came unlinked.** Saving bar changes from inside the Omarchy
   shell can replace `~/.config/omarchy/shell.json` with a plain file, so
-  later edits stop reaching the repo. `./setup.sh apply` adopts the live file
-  and re-links it. The adopted changes are your edits, so review `git diff`
-  and commit them.
+  later edits stop reaching the repo. `./setup.sh apply` re-links it and
+  moves the plain file to the backup directory it prints. Diff it against the
+  repo copy, port the edits you want and commit.
 - **A package isn't listed.** Something installed by hand that neither
   Omarchy nor `packages.txt` accounts for. Add it to `packages.txt`.
-
-Agents working in this repo follow `CLAUDE.md`, which covers the same rules.

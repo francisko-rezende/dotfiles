@@ -26,12 +26,12 @@ listed() {
 }
 
 packages() {
-  sudo pacman -S --needed $(listed pacman)
-  yay -S --needed $(listed aur)
+  omarchy pkg add $(listed pacman)
+  omarchy pkg aur add $(listed aur)
 
   # Omarchy's installer also downloads the model and enables voxtype.service.
-  if [[ $(omarchy-default-dictation 2>/dev/null) != voxtype ]]; then
-    omarchy-install-dictation-voxtype
+  if [[ $(omarchy default dictation 2>/dev/null) != voxtype ]]; then
+    omarchy install dictation voxtype
   fi
 
   # The installer appends a pnpm block to ~/.bashrc. On a fresh install that's
@@ -44,22 +44,49 @@ packages() {
   fi
 }
 
-apply() {
-  # --adopt moves live files over their repo copies, so start from a clean tree:
-  # afterwards, `git diff` shows exactly what was adopted.
-  if [[ -n $(git status --porcelain --untracked-files=no) ]]; then
-    echo "Uncommitted changes in $repo: commit or stash them first." >&2
-    exit 1
-  fi
+# Move anything in $HOME that would block a link out of the way. Files identical
+# to the repo's copy are just dropped; the rest go to one timestamped backup
+# directory, so nothing is lost and the repo is never modified.
+clear_conflicts() {
+  local pkg file target backup="" moved=()
+  for pkg in $(stow_packages); do
+    while read -r file; do
+      target="$HOME/${file#*/}"
+      [[ -f $target || -L $target ]] || continue
+      [[ $(readlink -f "$target") == "$repo/$file" ]] && continue
+      if [[ -f $target && ! -L $target ]] && cmp -s "$target" "$repo/$file"; then
+        rm "$target"
+        continue
+      fi
+      backup=${backup:-$HOME/.local/state/dotfiles-backup/$(date +%Y%m%d-%H%M%S)}
+      mkdir -p "$backup/$(dirname "${file#*/}")"
+      mv "$target" "$backup/${file#*/}"
+      moved+=("${file#*/}")
+    done < <(git ls-files "$pkg")
+  done
+  if ((${#moved[@]})); then
+    printf '\nMoved %d existing file(s) that differ from the repo to %s:\n' "${#moved[@]}" "$backup"
+    printf '  ~/%s\n' "${moved[@]}"
+    cat <<'EOF'
 
+- Fresh install: they're Omarchy's defaults; ignore the backup.
+- Existing machine: they may hold edits made while a link was broken. Compare
+  with `diff <backup>/<file> <repo>/<package>/<file>`, port what you want into
+  the repo, and commit.
+EOF
+  fi
+}
+
+apply() {
   # Without this directory, Stow folds plugins/ into one symlink into the repo,
   # and plugins Omarchy links in later (io.voxtype.settings) land in the repo.
   mkdir -p ~/.config/omarchy/plugins
 
   # ssh gets --no-folding: on a machine without ~/.ssh, Stow would otherwise make
   # ~/.ssh itself a symlink into the repo, and private keys would land in git.
-  stow --adopt -t ~ $(stow_packages | grep -vx ssh)
-  stow --adopt --no-folding -t ~ ssh
+  clear_conflicts
+  stow -t ~ $(stow_packages | grep -vx ssh)
+  stow --no-folding -t ~ ssh
 
   # Stow manages files only; the agent socket is unit state.
   systemctl --user enable --now ssh-agent.socket
@@ -69,17 +96,6 @@ apply() {
   echo "Restoring Neovim plugins..."
   if ! nvim --headless "+Lazy! restore" +qa >/dev/null 2>&1; then
     echo "Neovim plugin restore failed; open nvim and run :Lazy restore to see why." >&2
-  fi
-
-  if [[ -n $(git status --porcelain --untracked-files=no) ]]; then
-    git status --short
-    cat <<'EOF'
-
-Stow adopted live files that differ from the repo (listed above):
-- Fresh install: they're Omarchy's defaults. Discard them: git checkout -- .
-- Existing machine: they're edits made while a link was broken. Review
-  `git diff` and keep them.
-EOF
   fi
 }
 
@@ -109,7 +125,7 @@ verify() {
     fail "ssh-agent.socket not enabled and active (fix: ./setup.sh apply)"
   fi
 
-  if [[ $(omarchy-default-dictation 2>/dev/null) == voxtype ]]; then ok "dictation backend is voxtype"; else fail "dictation backend is not voxtype (fix: ./setup.sh packages)"; fi
+  if [[ $(omarchy default dictation 2>/dev/null) == voxtype ]]; then ok "dictation backend is voxtype"; else fail "dictation backend is not voxtype (fix: ./setup.sh packages)"; fi
 
   local missing
   missing=$(pacman -T $(listed pacman) $(listed aur) || true)
