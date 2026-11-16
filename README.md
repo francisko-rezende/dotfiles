@@ -6,7 +6,9 @@ directory is a package whose contents mirror `$HOME`:
 - `hypr/` — Hyprland config (Omarchy's Lua config format)
 - `nvim/` — Neovim (LazyVim-based)
 - `herdr/` — [herdr](https://github.com/herdrdev/herdr) terminal workspace manager config
-- `omarchy/` — Omarchy shell config (`shell.json`: bar layout, idle/lock)
+- `omarchy/` — Omarchy shell config (`shell.json`: bar layout, idle/lock) and
+  my own shell plugins (`plugins/francisko.notifications`: the notifications
+  bar widget `shell.json` enables)
 - `bash/` — `.bashrc` (interactive shell setup, incl. Starship init)
 - `starship/` — Starship prompt config (`starship.toml`)
 - `uwsm/` — uwsm session env overrides (`env.d/50-ssh-agent.conf`: points
@@ -24,10 +26,32 @@ fresh machine should end up as a package here.
 
 ## Setting up on a fresh Omarchy install
 
-1. Install `stow` (not part of the base install):
+1. Install the packages that aren't part of the base Omarchy install.
+   `herdr` and `starship` already ship with Omarchy, so they're not listed.
+
+   `stow` is the one this repo needs. The rest are tools I use day to day:
 
    ```
-   sudo pacman -S stow
+   sudo pacman -S --needed stow \
+     google-chrome lazydocker go-yq clang llvm \
+     obs-studio kdenlive xournalpp transmission-gtk owe-lockfeed
+   yay -S --needed firebase-tools-bin google-cloud-cli google-cloud-cli-bq
+   ```
+
+   Dictation (Voxtype), which the dictation keys in `hypr/bindings.lua` rely
+   on. Let Omarchy install and configure it rather than installing
+   `voxtype-bin` by hand:
+
+   ```
+   omarchy-default-dictation voxtype
+   ```
+
+   pnpm, installed standalone into `~/.local/share/pnpm` (the path `.bashrc`
+   puts on `PATH`), then the Cloudflare `cf` CLI through it:
+
+   ```
+   curl -fsSL https://get.pnpm.io/install.sh | sh -
+   pnpm add -g cf
    ```
 
 2. Clone this repo, e.g. to `~/Coding/personal/dotfiles`.
@@ -39,7 +63,13 @@ fresh machine should end up as a package here.
    files into the repo, then immediately discard them with git so your
    tracked config wins:
 
+   Create `~/.config/omarchy/plugins` first. If that directory doesn't exist,
+   Stow folds it into a single symlink pointing into this repo. Plugins that
+   Omarchy links in later (e.g. `io.voxtype.settings`) would then land inside
+   the repo.
+
    ```
+   mkdir -p ~/.config/omarchy/plugins
    cd ~/Coding/personal/dotfiles
    stow --adopt -t ~ herdr hypr nvim omarchy bash starship uwsm
    git status    # should show files modified with Omarchy's defaults
@@ -77,3 +107,18 @@ fresh machine should end up as a package here.
    copy or generate it separately), the first `git push`/`ssh` per boot will
    prompt for its passphrase once and stay cached in the agent — across every
    terminal and app — until reboot.
+
+## Keeping `shell.json` linked
+
+Changing the bar from inside the Omarchy shell can replace
+`~/.config/omarchy/shell.json` with a plain file instead of writing through
+the symlink. After that, edits stop reaching this repo. This happened after the
+4.5.0 update. To check and repair:
+
+```
+ls -l ~/.config/omarchy/shell.json   # should be a symlink into this repo
+cd ~/Coding/personal/dotfiles
+cat ~/.config/omarchy/shell.json > omarchy/.config/omarchy/shell.json
+rm ~/.config/omarchy/shell.json && stow -t ~ omarchy
+git diff omarchy/   # review what changed while it was detached
+```
