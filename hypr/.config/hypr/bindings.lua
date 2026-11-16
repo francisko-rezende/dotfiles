@@ -110,3 +110,10 @@ o.bind("SUPER + CTRL + SHIFT + L", "Move window right", hl.dsp.window.move({ dir
 --
 -- o.bind("SUPER + BRACKETLEFT", "Snap window to left half", snap_half("left"))
 -- o.bind("SUPER + BRACKETRIGHT", "Snap window to right half", snap_half("right"))
+
+-- Dictation keys from before Alt + Space and Right Alt became the defaults.
+-- Remove these lines to give the keys back to applications.
+if o.dictation_installed and o.dictation_installed() then
+  o.bind("SUPER + CTRL + X", "Toggle dictation", "omarchy-dictation toggle")
+  o.bind_hold("F9", "Start dictation (push-to-talk)", "omarchy-dictation start", "Stop dictation (push-to-talk)", "omarchy-dictation stop")
+end
