@@ -7,7 +7,6 @@
   "bar": {
     "position": "top",
     "transparent": false,
-    "centerAnchor": "omarchy.clock",
     "layout": {
       "left": [
         {
@@ -19,30 +18,18 @@
       ],
       "center": [
         {
-          "id": "omarchy.indicators"
-        },
-        {
           "id": "omarchy.clock",
           "format": "yyyy-MM-dd dddd HH:mm",
           "formatAlt": "d MMMM 'W'ww yyyy",
           "verticalFormat": "HH\n—\nmm"
-        },
-        {
-          "id": "omarchy.elsewhen"
-        },
-        {
-          "id": "omarchy.keyboard-layout"
-        },
-        {
-          "id": "omarchy.weather"
-        },
-        {
-          "id": "omarchy.system-update"
         }
       ],
       "right": [
         {
           "id": "omarchy.tray"
+        },
+        {
+          "id": "omarchy.keyboard-layout"
         },
         {
           "id": "omarchy.agents"
@@ -62,12 +49,47 @@
         {
           "id": "omarchy.power"
         }
+      ],
+      "centerBegin": [
+        {
+          "id": "omarchy.indicators"
+        }
+      ],
+      "centerEnd": [
+        {
+          "id": "omarchy.elsewhen",
+          "cities": [
+            {
+              "name": "Sao Paulo",
+              "zone": "America/Sao_Paulo"
+            },
+            {
+              "name": "Lisbon",
+              "zone": "Europe/Lisbon",
+              "lat": 38.72509,
+              "lon": -9.1498,
+              "region": "Lisbon District, PT",
+              "people": [
+                "Wil"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "omarchy.weather"
+        },
+        {
+          "id": "omarchy.system-update"
+        }
       ]
     }
   },
   "plugins": [
     {
       "id": "francisko.notifications"
+    },
+    {
+      "id": "io.voxtype.settings"
     }
   ],
   "disabledPlugins": [
