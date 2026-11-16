@@ -51,6 +51,8 @@ clear_conflicts() {
   local pkg file target backup="" moved=()
   for pkg in $(stow_packages); do
     while read -r file; do
+      # Stow ignores .gitignore files by default, so they are never linked.
+      [[ ${file##*/} == .gitignore ]] && continue
       target="$HOME/${file#*/}"
       [[ -f $target || -L $target ]] || continue
       [[ $(readlink -f "$target") == "$repo/$file" ]] && continue
@@ -109,6 +111,7 @@ verify() {
   local file target unlinked=0
   for pkg in $(stow_packages); do
     while read -r file; do
+      [[ ${file##*/} == .gitignore ]] && continue # stow never links these
       target="$HOME/${file#*/}"
       if [[ $(readlink -f "$target") != "$repo/$file" ]]; then
         fail "not linked: ~/${file#*/} (fix: ./setup.sh apply)"
