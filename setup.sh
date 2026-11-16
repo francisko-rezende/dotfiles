@@ -40,7 +40,7 @@ packages() {
     curl -fsSL https://get.pnpm.io/install.sh | sh -
   fi
   if [[ ! -x $pnpm_home/bin/cf ]]; then
-    PNPM_HOME=$pnpm_home PATH="$pnpm_home/bin:$PATH" "$pnpm_home/bin/pnpm" add -g cf
+    PNPM_HOME=$pnpm_home PATH="$pnpm_home/bin:$PATH" "$pnpm_home/bin/pnpm" add -g cf --allow-build=workerd
   fi
 }
 
