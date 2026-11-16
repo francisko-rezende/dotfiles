@@ -9,7 +9,9 @@ package whose contents mirror `$HOME`:
 - `herdr/`: [herdr](https://github.com/herdrdev/herdr) terminal workspace manager config
 - `omarchy/`: Omarchy shell config (`shell.json`: bar layout, idle/lock) and
   my own shell plugins (`plugins/francisko.notifications`: the notifications
-  bar widget `shell.json` enables)
+  bar widget `shell.json` enables) and my `hooks/theme-set.d/10-owe-sync` hook.
+  Omarchy's own sample and generated hooks, branding and themed files stay
+  untracked.
 - `bash/`: `.bashrc` (interactive shell setup, incl. Starship init)
 - `starship/`: Starship prompt config (`starship.toml`)
 - `uwsm/`: uwsm session env (`env.d/50-ssh-agent.conf` sets `SSH_AUTH_SOCK`;

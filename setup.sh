@@ -78,9 +78,10 @@ EOF
 }
 
 apply() {
-  # Without this directory, Stow folds plugins/ into one symlink into the repo,
-  # and plugins Omarchy links in later (io.voxtype.settings) land in the repo.
-  mkdir -p ~/.config/omarchy/plugins
+  # Without these directories, Stow folds each into one symlink into the repo,
+  # and files Omarchy adds later (the io.voxtype.settings plugin, hooks it
+  # installs) land in the repo.
+  mkdir -p ~/.config/omarchy/plugins ~/.config/omarchy/hooks/theme-set.d
 
   # ssh gets --no-folding: on a machine without ~/.ssh, Stow would otherwise make
   # ~/.ssh itself a symlink into the repo, and private keys would land in git.
