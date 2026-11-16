@@ -24,6 +24,7 @@ aur google-cloud-cli-bq
 ignore voxtype-bin       # Omarchy's dictation installer (setup.sh packages)
 ignore linux             # Omarchy's installer, outside its package lists
 ignore amd-ucode         # Omarchy's installer, per CPU
+ignore intel-ucode       # Omarchy's installer, per CPU
 ignore efibootmgr        # Omarchy's installer
 ignore mkinitcpio        # Omarchy's installer
 ignore sudo              # Omarchy's installer
