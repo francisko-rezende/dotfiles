@@ -1,0 +1,32 @@
+# Packages beyond Omarchy's own package lists, one per line: <source> <name>
+#   pacman  official repos and Omarchy's repo
+#   aur     installed with yay
+#   ignore  installed some other way (say how); listed so `setup.sh verify`
+#           doesn't flag it as unlisted
+# `setup.sh packages` installs the pacman and aur entries.
+
+pacman stow
+pacman google-chrome
+pacman lazydocker
+pacman go-yq
+pacman clang
+pacman llvm
+pacman obs-studio
+pacman kdenlive
+pacman xournalpp
+pacman transmission-gtk
+pacman owe-lockfeed
+
+aur firebase-tools-bin
+aur google-cloud-cli
+aur google-cloud-cli-bq
+
+ignore voxtype-bin       # Omarchy's dictation installer (setup.sh packages)
+ignore linux             # Omarchy's installer, outside its package lists
+ignore amd-ucode         # Omarchy's installer, per CPU
+ignore efibootmgr        # Omarchy's installer
+ignore mkinitcpio        # Omarchy's installer
+ignore sudo              # Omarchy's installer
+ignore omarchy           # Omarchy's installer
+ignore omarchy-keyring   # Omarchy's installer
+ignore omarchy-settings  # Omarchy's installer
