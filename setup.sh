@@ -91,8 +91,10 @@ apply() {
   stow -t ~ $(stow_packages | grep -vx ssh)
   stow --no-folding -t ~ ssh
 
-  # Stow manages files only; the agent socket is unit state.
-  systemctl --user enable --now ssh-agent.socket
+  # Stow manages files only; the SSH agent is set up by Omarchy itself. This
+  # enables gcr-ssh-agent.socket and writes SSH_AUTH_SOCK to
+  # ~/.config/environment.d/90-gcr-ssh-agent.conf.
+  omarchy setup security ssh agent
 
   # Install Neovim plugins at the versions in lazy-lock.json. Mason installs
   # LSPs on the first interactive launch.
@@ -123,11 +125,13 @@ verify() {
 
   if [[ -d ~/.ssh && ! -L ~/.ssh ]]; then ok "~/.ssh is a real directory"; else fail "~/.ssh is missing or a symlink; it must be a real directory (fix: ./setup.sh apply)"; fi
 
-  if systemctl --user is-enabled --quiet ssh-agent.socket && systemctl --user is-active --quiet ssh-agent.socket; then
-    ok "ssh-agent.socket enabled and active"
+  if systemctl --user is-enabled --quiet gcr-ssh-agent.socket && systemctl --user is-active --quiet gcr-ssh-agent.socket; then
+    ok "gcr-ssh-agent.socket enabled and active"
   else
-    fail "ssh-agent.socket not enabled and active (fix: ./setup.sh apply)"
+    fail "gcr-ssh-agent.socket not enabled and active (fix: ./setup.sh apply)"
   fi
+
+  if [[ -f ~/.config/environment.d/90-gcr-ssh-agent.conf ]]; then ok "SSH_AUTH_SOCK points at gcr-ssh-agent"; else fail "~/.config/environment.d/90-gcr-ssh-agent.conf missing (fix: ./setup.sh apply)"; fi
 
   if [[ $(omarchy default dictation 2>/dev/null) == voxtype ]]; then ok "dictation backend is voxtype"; else fail "dictation backend is not voxtype (fix: ./setup.sh packages)"; fi
 

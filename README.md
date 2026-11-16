@@ -14,8 +14,6 @@ package whose contents mirror `$HOME`:
   untracked.
 - `bash/`: `.bashrc` (interactive shell setup, incl. Starship init)
 - `starship/`: Starship prompt config (`starship.toml`)
-- `uwsm/`: uwsm session env (`env.d/50-ssh-agent.conf` sets `SSH_AUTH_SOCK`;
-  the file explains why it isn't done via `environment.d`)
 - `ssh/`: `~/.ssh/config` (`AddKeysToAgent yes`, so a passphrase prompt
   caches the key in the agent instead of just unlocking it once)
 
@@ -43,7 +41,8 @@ window, a private key, or a new login session. An agent can run the rest.
    ./setup.sh packages
    ```
 
-3. Link the configs, enable `ssh-agent.socket` and install Neovim plugins:
+3. Link the configs, set up Omarchy's SSH agent (gcr-ssh-agent) and install
+   Neovim plugins:
 
    ```
    ./setup.sh apply
@@ -62,9 +61,10 @@ window, a private key, or a new login session. An agent can run the rest.
    git remote set-url origin git@github.com:francisko-rezende/dotfiles.git
    ```
 
-5. **(you)** Log out and back in. uwsm reads its session env only at login, and
-   `SSH_AUTH_SOCK` comes from it. After that, the first `git push` or `ssh` per
-   boot asks for the key's passphrase once, and the agent keeps it until reboot.
+5. **(you)** Log out and back in. The session reads `SSH_AUTH_SOCK` from
+   `~/.config/environment.d/` only at login. After that, the first `git push` or `ssh`
+   opens a dialog asking for the key's passphrase. Tick the option to remember
+   it in the keyring, and it won't ask again, even after a reboot.
 
 6. Check the result. Setup is done when this passes:
 
